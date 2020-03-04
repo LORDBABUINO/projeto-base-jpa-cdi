@@ -1,2 +1,5 @@
 /target/
 db
+.classpath
+.project
+.settings/
