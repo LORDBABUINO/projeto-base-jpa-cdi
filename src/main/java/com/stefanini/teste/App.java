@@ -8,8 +8,10 @@ import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
 import javax.inject.Inject;
 
+import com.stefanini.model.Endereco;
 import com.stefanini.model.Perfil;
 import com.stefanini.model.Pessoa;
+import com.stefanini.servico.EnderecoServico;
 import com.stefanini.servico.PerfilServico;
 import com.stefanini.servico.PessoaServico;
 
@@ -20,6 +22,9 @@ public class App {
 
 	@Inject
 	private PerfilServico perfilServico;
+
+	@Inject
+	private EnderecoServico enderecoServico;
 
 	public static void main(String[] args) {
 		// CONFIGURACAO PARA INICIAR O CONTAINER PARA GERENCIAMENTO DO CDI
@@ -68,11 +73,15 @@ public class App {
 
 	public void salvar() {
 
-		Pessoa pessoa = new Pessoa("JOAO", "joao@email.com", LocalDate.of(1995, 8, 24), true);
-		servico.salvar(pessoa);
+		//Pessoa pessoa = new Pessoa("JOAO", "joao@email.com", LocalDate.of(1995, 8, 24), true);
+		//servico.salvar(pessoa);
 
-		Perfil perfil = new Perfil("jorge", "descrição do perfil do jorge", new Date(), new Date());
-		perfilServico.salvar(perfil);
+		//Perfil perfil = new Perfil("jorge", "descrição do perfil do jorge", new Date(), new Date());
+		//perfilServico.salvar(perfil);
+
+		Pessoa pessoa1 = servico.encontrar(new Long(1)).get();
+		Endereco endereco = new Endereco(pessoa1, "logradouro de teste", "complemento de teste", "bairro de teste", "cidade de teste", "uf de teste", "cep");
+		enderecoServico.salvar(endereco);
 	}
 
 }
